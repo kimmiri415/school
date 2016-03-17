@@ -74,6 +74,16 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
+		try {
+			Class.forName(Constants.ORACLE_DRIVER);
+			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("DELETE FROM Member WHERE id='" + id + "'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("delete() 에서 에러 발생");
+			e.printStackTrace();
+		}
 
 	}
 

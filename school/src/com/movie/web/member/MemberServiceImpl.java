@@ -5,6 +5,8 @@ package com.movie.web.member;
 
 import java.util.HashMap;
 
+import oracle.net.aso.g;
+
 /**
  * @file MemberServiceImpl.java
  * @author rlaalfl92@gmail.com
@@ -23,10 +25,10 @@ public class MemberServiceImpl implements MemberService {
 	public String join(MemberBean member) {
 		// 회원가입
 		String result = "회원가입 실패";
-		if (detail(member.getId()) == null) {
+		if (!detail(member.getId()).equals(null)) {
 			dao.insert(member);
 			result = "회원가입 성공 : " + detail(member.getId());
-		}
+		} 
 		return result;
 	}
 
@@ -66,8 +68,9 @@ public class MemberServiceImpl implements MemberService {
 	public String remove(String id) {
 		// 탈퇴
 		String result = "탈퇴하려는 id가 존재하지 않음";
-		if (map.containsKey(id)) {
-			map.remove(id);
+
+		if (detail(id) != null) {
+			dao.delete(id);
 			result = "탈퇴 성공";
 		}
 		return result;
