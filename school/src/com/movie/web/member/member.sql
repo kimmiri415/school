@@ -24,6 +24,7 @@ SELECT * FROM Member;
 SELECT * FROM Member
 WHERE id = 'kim';
 
+
 DELETE
 FROM Member
 WHERE id='miri';
