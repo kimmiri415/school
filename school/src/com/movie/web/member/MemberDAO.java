@@ -1,5 +1,7 @@
 package com.movie.web.member;
 
+import java.util.Map;
+
 public interface MemberDAO {
 	public void insert(MemberBean member);
 

@@ -22,9 +22,7 @@ public class MemberDAOImpl implements MemberDAO {
 			Class.forName(Constants.ORACLE_DRIVER);
 			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("INSERT INTO Member(id,name,password,addr,birth) VALUES('" + member.getId() + "','"
-					+ member.getName() + "','" + member.getPassword() + "','" + member.getAddr() + "',"
-					+ member.getBirth() + ")");
+			rs = stmt.executeQuery("INSERT INTO Member(id,name,password,addr,birth) VALUES(?,?,?,?,?)");
 
 		} catch (Exception e) {
 			System.out.println("insert() 에서 에러 발생");
@@ -43,6 +41,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberBean selectMember(String id) {
 		// TODO Auto-generated method stub
 		MemberBean temp = new MemberBean();
+
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
 			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);

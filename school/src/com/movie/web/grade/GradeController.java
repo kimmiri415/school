@@ -2,6 +2,7 @@ package com.movie.web.grade;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @file GradeController.java
@@ -24,9 +25,10 @@ public class GradeController {
 			case 2:
 				System.out.println("수정하려는 성적표의 학번, 자바, SQL, JSP, 스프링 점수입력 :");
 				int hak = s.nextInt();
-				String name = service.getGradeByHak(hak).getId();
-				System.out.println(
-						service.update(new GradeBean(hak, name, s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt())));
+				// String name = service.getGradeByHak(hak).getId();
+				// System.out.println(
+				// service.update(new GradeBean(hak, name, s.nextInt(),
+				// s.nextInt(), s.nextInt(), s.nextInt())));
 				break;
 			case 3:
 				System.out.println("[삭제] 삭제할 학번 입력 : ");
@@ -38,13 +40,11 @@ public class GradeController {
 				break;
 			case 5:
 				System.out.println("[조회(이름)] 조회할 이름 입력 : ");
-				ArrayList<GradeBean> tempList = service.getGradesByName(s.next());
-				System.out.println((tempList.size() == 0) ? "조회하려는 이름이 없습니다." : tempList);
+				System.out.println(service.getGradesByName(s.next()).toString());
 				break;
 			case 6:
 				System.out.println("[조회(학번)] 조회할 학번 입력 : ");
-				GradeBean temp = service.getGradeByHak(s.nextInt());
-				System.out.println((temp.getId() == null) ? "조회하려는 학번이 없습니다." : temp.toString());
+				System.out.println(service.getGradeByHak(s.nextInt()));
 				break;
 			case 7:
 				System.out.println("[회원수]");

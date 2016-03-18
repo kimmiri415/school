@@ -1,10 +1,13 @@
 package com.movie.web.grade;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class GradeServiceImpl implements GradeService {
 	// 멤버필드
 	ArrayList<GradeBean> gradeList;
+	GradeDAO dao = new GradeDAOImpl();
 
 	public GradeServiceImpl() {
 		gradeList = new ArrayList<GradeBean>();
@@ -20,40 +23,25 @@ public class GradeServiceImpl implements GradeService {
 		gradeList.add(grade);
 	}
 
-	public ArrayList<GradeBean> getList() {
+	public List<GradeMemberBean> getList() {
 		// R 성적표 리스트 출력
-		return gradeList;
+		return dao.selectAll();
 	}
 
-	public GradeBean getGradeByHak(int hak) {
-		// R 성적표 조회(학번)
-		GradeBean tempGrade = new GradeBean();
-		for (int i = 0; i < gradeList.size(); i++) {
+	public GradeMemberBean getGradeByHak(int hak) {
 
-			if (hak == gradeList.get(i).getHak()) {
-				tempGrade = gradeList.get(i);
-				break;
-			}
-		}
-		return tempGrade;
+		return dao.selectGradeByHak(hak);
 	}
 
 	@Override
-	public ArrayList<GradeBean> getGradesByName(String name) {
+	public List<GradeMemberBean> getGradesByName(String name) {
 		// R 성적표 조회(이름)
-		ArrayList<GradeBean> tempList = new ArrayList<GradeBean>();
-		for (int i = 0; i < gradeList.size(); i++) {
-			if (name.equals(gradeList.get(i).getId())) {
-				tempList.add(gradeList.get(i));
-
-			}
-		}
-		return tempList;
+		return dao.selectGradesByName(name);
 	}
 
 	public int getCount() {
 		// R 카운트 조회
-		return gradeList.size();
+		return dao.count();
 
 	}
 
@@ -64,26 +52,15 @@ public class GradeServiceImpl implements GradeService {
 
 	public String update(GradeBean grade) {
 		// U 성적표 수정
-		String result = "수정하려는 학번이 존재하지 않음";
-		if (gradeList.contains(getGradeByHak(grade.getHak()))) {
-			GradeBean searchedGrade = getGradeByHak(grade.getHak());
-			searchedGrade.setJava(grade.getJava());
-			searchedGrade.setSql(grade.getSql());
-			searchedGrade.setJsp(grade.getJsp());
-			searchedGrade.setSpring(grade.getSpring());
+		String temp = "";
 
-			result = "수정 성공 " + searchedGrade;
-			// delete(grade.getHak());
-			// input(grade);
-		}
-
-		return result;
+		return temp;
 	}
 
 	public String delete(int hak) {
 		// D 성적표 삭제
 
-		return ((gradeList.remove(getGradeByHak(hak))) ? "삭제성공" : "삭제실패");
+		return dao.delete(hak);
 	}
 
 }
