@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 		if (!detail(member.getId()).equals(null)) {
 			dao.insert(member);
 			result = "회원가입 성공 : " + detail(member.getId());
-		} 
+		}
 		return result;
 	}
 
@@ -50,16 +50,17 @@ public class MemberServiceImpl implements MemberService {
 	public String update(MemberBean member) {
 		// 수정
 		String result = "수정하려는 id가 존재하지 않음";
-		if (map.containsKey(member.getId())) {
-			// 방법1.//map.replace(member.getId(), member);
-			// 방법2.
-			MemberBean tempBean = map.get(member.getId());
+		if (!detail(member.getId()).equals(null)) {
+
+			MemberBean tempBean = dao.selectMember(member.getId());
 			tempBean.setPassword(member.getPassword());
 			tempBean.setAddr(member.getAddr());
 			tempBean.setBirth(member.getBirth());
 			tempBean.setName(member.getName());
 
 			result = "수정 성공 " + tempBean;
+
+			return result;
 		}
 
 		return result;
