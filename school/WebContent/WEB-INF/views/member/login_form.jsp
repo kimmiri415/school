@@ -29,6 +29,8 @@
 				<input type="submit" value="로그인" /> <input type="reset" value="취소" />
 			</div>
 		</form>
+		<input type="button" onclick="location='${context}/global/main.do'"
+			value="홈으로">
 	</div>
 	<div>
 		<h4>아이디가 없으면, 계정을 생성하시오</h4>

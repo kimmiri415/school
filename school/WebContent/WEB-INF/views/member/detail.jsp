@@ -9,8 +9,7 @@
 <title>Document</title>
 </head>
 <body>
-	<input type="button"
-		onclick="location='${context}/member/login_form.do'" /value="로그아웃2">
+	
 	<form action="${context}/global/main.do">
 		<table border="1">
 			<tr>

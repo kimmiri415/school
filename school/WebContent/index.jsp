@@ -6,9 +6,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<title>메인화면</title>
+<title>index</title>
 </head>
 <body>
-	<a href="${context}/member/login_form.do">로그인 화면 이동</a>
+	<a href="${context}/global/main.do">홈으로</a>
 </body>
 </html>

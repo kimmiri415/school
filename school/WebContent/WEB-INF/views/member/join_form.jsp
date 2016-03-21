@@ -45,5 +45,7 @@
 			<input type="reset" value="취소" /> <input type="submit" value="회원가입" />
 		</div>
 	</form>
+	<input type="button"
+		onclick="location='${context}/global/main.do'" value="홈으로">
 </body>
 </html>
