@@ -15,27 +15,30 @@
 		<table>
 			<tr>
 				<td><h3>아이디 :</h3></td>
-				<td><input type="text" name="id" /></td>
+				<td><input type="text" name="id" value="" autofocus="autofocus"
+					required="required" /></td>
 			</tr>
 			<tr>
 				<td><h3>비밀번호 :</h3></td>
-				<td><input type="password" name="password" /></td>
+				<td><input type="password" name="password" value=""
+					required="required" /></td>
 			</tr>
 			<tr>
 				<td><h3>비밀번호확인 :</h3></td>
-				<td><input type="password" name="passwordCheck" /></td>
+				<td><input type="password" name="passwordCheck" value=""
+					required="required" /></td>
 			</tr>
 			<tr>
 				<td><h3>이름 :</h3></td>
-				<td><input type="text" name="name" /></td>
+				<td><input type="text" name="name" value="" required="required" /></td>
 			</tr>
 			<tr>
 				<td><h3>주소 :</h3></td>
-				<td><input type="text" name="addr" /></td>
+				<td><input type="text" name="addr" value="" /></td>
 			</tr>
 			<tr>
 				<td><h3>생년월일 :</h3></td>
-				<td><input type="date" name="birth" /></td>
+				<td><input type="date" name="birth" value="" /></td>
 			</tr>
 		</table>
 		<div>
