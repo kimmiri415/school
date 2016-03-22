@@ -51,15 +51,14 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("selectMember() 에서 에러 발생함 !!");
+			System.out.println("selectById() 에서 에러 발생함 !!");
 			e.printStackTrace();
 		}
-		System.out.println("쿼리 조회 결과 :"+temp.getAddr());
 		if (temp.getAddr() != null) {
-			System.out.println("쿼리 조회 결과 :"+temp.getAddr());
+			System.out.println("selectById() 쿼리 조회 결과 :"+temp.getAddr());
 			return temp;
 		} else {
-			System.out.println("쿼리 조회 결과 : null ");
+			System.out.println("selectById() 쿼리 조회 결과 : null ");
 			return null;
 		}
 		
