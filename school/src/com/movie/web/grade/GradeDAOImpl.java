@@ -108,7 +108,39 @@ public class GradeDAOImpl implements GradeDAO {
 
 		return bean;
 	}
+	public GradeMemberBean selectGradeById(String id) {
+		// R 성적표 조회(id)
 
+		GradeMemberBean bean = new GradeMemberBean();
+		try {
+			Class.forName(Constants.ORACLE_DRIVER);
+			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM GradeMember WHERE id = '" + id + "'");
+			while (rs.next()) {
+
+				// 방법1 Map이용
+
+				// 방법2 bean객체 생성
+				bean.setId(rs.getString("id"));
+				bean.setName(rs.getString("name"));
+				bean.setPassword(rs.getString("password"));
+				bean.setAddr(rs.getString("addr"));
+				bean.setBirth(rs.getInt("birth"));
+				bean.setId(rs.getString("id"));
+				bean.setHak(rs.getInt("hak"));
+				bean.setJava(rs.getInt("java"));
+				bean.setSql(rs.getInt("sql"));
+				bean.setJsp(rs.getInt("jsp"));
+				bean.setSpring(rs.getInt("spring"));
+			}
+		} catch (Exception e) {
+			System.out.println("selectGradeById()에서 에러 발생");
+			e.printStackTrace();
+		}
+
+		return bean;
+	}
 	@Override
 	public List<GradeMemberBean> selectGradesByName(String name) {
 		// TODO Auto-generated method stub

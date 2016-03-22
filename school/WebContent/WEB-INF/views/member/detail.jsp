@@ -8,29 +8,31 @@
 		<tr>
 			<td rowspan="4"></td>
 			<td><h4>아이디</h4></td>
-			<td><input type="text" name="id" value="" /></td>
+			<td><input type="text" name="id" value="${member.id}" /></td>
 		</tr>
 		<tr>
 			<td><h4>이름</h4></td>
-			<td><input type="text" name="name" value="" /></td>
+			<td><input type="text" name="name" value="${member.name}" /></td>
 		</tr>
 		<tr>
 			<td><h4>비밀번호</h4></td>
-			<td><input type="password" name="password" value="" /></td>
+			<td><input type="password" name="password"
+				value="${member.password}" /></td>
 		</tr>
 		<tr>
 			<td><h4>주소</h4></td>
-			<td><input type="text" name="addr" value="" /></td>
+			<td><input type="text" name="addr" value="${member.addr}" /></td>
 		</tr>
 		<tr>
 			<td><input type="file" name="file" value="" /></td>
 			<td><h4>생년월일</h4></td>
-			<td><input type="date" /></td>
+			<td><input type="text" value="${member.birth}" /></td>
 		</tr>
 	</table>
 
 	<div>
 		<form action="${context}/grade/my_grade.do">
+		<input type="hidden" name="id" value="${member.id}" />
 			<input type="submit" value="내 성적 보기" />
 		</form>
 	</div>

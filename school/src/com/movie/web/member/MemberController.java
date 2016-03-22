@@ -13,7 +13,7 @@ import com.movie.web.global.Command;
 import com.movie.web.global.CommandFactory;
 
 @WebServlet({ "/member/login_form.do", "/member/join_form.do", "/member/join.do", "/member/login.do",
-		"/member/admin.do","/grade/my_grade.do" })
+		"/member/admin.do" })
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,20 +22,46 @@ public class MemberController extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("인덱스에서 들어옴");
 		Command command = new Command();
+		MemberService service = new MemberServiceImpl();
+		String id = "", password = "";
+
 		String[] arr = new String[2];
 		String path = request.getServletPath();
 		String directory = path.split("/")[1];
 		String action = path.split("/")[2].split("\\.")[0];
 		switch (action) {
 		case "join":
-			String id = request.getParameter("id");
-			System.out.println("id :" + id);
+			System.out.println("====회원가입====");
+
+			MemberBean member = new MemberBean();
+			member.setId(request.getParameter("id"));
+			member.setPassword(request.getParameter("password"));
+			member.setAddr(request.getParameter("addr"));
+			member.setName(request.getParameter("name"));
+			// member.setBirth(parseInt(request.getParameter("birth")));
+			// service.join(member);
+			System.out.println(request.getParameter("birth") + "생일은 뭘까?");
+			// System.out.println("id :" + id);
+			command = CommandFactory.createCommand(directory, "login_form");
 			break;
 		case "login":
-			System.out.println("====로그인====");
-			command = CommandFactory.createCommand(directory, "detail");
+			
+			if (service.isMember(request.getParameter("id")) == true) {
+				System.out.println("====  아이디가 존재함 ===========");
+				member = service.login(request.getParameter("id"), request.getParameter("password"));
+				if (member.getId().equals(null)) {
+					System.out.println("비밀번호오류");
+					command = CommandFactory.createCommand(directory,"login_form");
+				}else{
+					System.out.println("로그인 성공");
+					request.setAttribute("member", member);
+					command = CommandFactory.createCommand(directory,"detail");
+				}
+			} else {
+				System.out.println("====  로그인 실패 ===========");
+				command = CommandFactory.createCommand(directory,"login_form");
+			}
 			break;
-
 		default:
 			command = CommandFactory.createCommand(directory, action);
 			break;

@@ -33,6 +33,11 @@ public class GradeServiceImpl implements GradeService {
 		return dao.selectGradeByHak(hak);
 	}
 
+	public GradeMemberBean getGradeById(String id) {
+
+		return dao.selectGradeById(id);
+	}
+
 	@Override
 	public List<GradeMemberBean> getGradesByName(String name) {
 		// R 성적표 조회(이름)

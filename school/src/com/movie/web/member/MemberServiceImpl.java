@@ -22,25 +22,27 @@ public class MemberServiceImpl implements MemberService {
 		map = new HashMap<String, MemberBean>();
 	}
 
-	public String join(MemberBean member) {
+	public void join(MemberBean member) {
 		// 회원가입
-		String result = "회원가입 실패";
-		if (!detail(member.getId()).equals(null)) {
-			dao.insert(member);
-			result = "회원가입 성공 : " + detail(member.getId());
-		}
-		return result;
+		dao.insert(member);
 	}
 
-	public String login(String id, String password) {
+	public MemberBean login(String id, String password) {
 		// 로그인
 		// 아이디가 존재하지 않아서 실패한 경우와 비번이 틀려서 실패한 경우에 따라서
 		// 메시지를 전달해줘야함
 
-		return ((map.containsKey(id)) ? ((map.get(id).getPassword().equals(password))
-				? map.get(id).getName() + "님 로그인하셨습니다." : "비밀번호를 확인해주세요.") : "존재하지않는 id입니다.");
-
+		MemberBean member = new MemberBean();
+		member = dao.selectById(id,password);
+		if (member.getId()!=null){
+			System.out.println(id + "님 로그인성공!!!!");
+			return member;
+		} else {
+			System.out.println("로그인실패 : " + id + "님 비밀번호 오류");
+			return null;
+		}
 	}
+	
 
 	public MemberBean detail(String id) {
 		// 내정보 보기
@@ -75,6 +77,12 @@ public class MemberServiceImpl implements MemberService {
 			result = "탈퇴 성공";
 		}
 		return result;
+	}
+
+	@Override
+	public boolean isMember(String id) {
+
+		return dao.isMember(id);
 	}
 
 }

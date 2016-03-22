@@ -5,8 +5,8 @@
 	<br/>
 	<div style="margin-left: 43.5%;">
 		<div>
-			 <a href="${context}/member/login_form.do">로그인 이동</a>
-			<a href="${context}/member/join_form.do">회원가입</a>
+			<h4> <a href="${context}/member/login_form.do">로그인 이동</a></h4>
+			<h4> <a href="${context}/member/join_form.do">회원가입</a></h4>
 		</div>
 
 	</div>

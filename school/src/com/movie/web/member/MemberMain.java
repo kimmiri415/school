@@ -23,7 +23,7 @@ public class MemberMain {
 			case 1:
 				System.out.println("[회원가입] id, password, 이름, 주소, 생년월일 입력 :");
 				MemberBean member = new MemberBean(s.next(), s.next(), s.next(), s.next(), s.nextInt());
-				System.out.println(service.join(member));
+				//System.out.println(service.join(member));
 				break;
 			case 2:
 				System.out.println("[로그인] id, password 입력 : ");
