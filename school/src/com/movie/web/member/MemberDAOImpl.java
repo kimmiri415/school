@@ -15,16 +15,18 @@ public class MemberDAOImpl implements MemberDAO {
 	private PreparedStatement pstmt;// 쿼리 전송 객체 2
 	private ResultSet rs;// 리턴값 회수 객체
 
+	public MemberDAOImpl() {
+		
+	}
+
 	@Override
 	public void insert(MemberBean member) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
-			if(isMember(member.getAddr())==false){
-			rs = stmt.executeQuery("INSERT INTO Member(id,name,password,addr,birth) VALUES(?,?,?,?,?)");
-			}else{
+			if (isMember(member.getAddr()) == false) {
+				rs = stmt.executeQuery("INSERT INTO Member(id,name,password,addr,birth) VALUES(?,?,?,?,?)");
+			} else {
 				System.out.println("회원가입 실패 : 아이디 중복");
 			}
 		} catch (Exception e) {
@@ -33,15 +35,13 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 
 	}
+
 	@Override
 	public MemberBean selectById(String id, String password) {
 		MemberBean temp = new MemberBean();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL,
-					Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM Member WHERE id ='"+id+"' and password = '"+password+"'");
+			rs = stmt.executeQuery("SELECT * FROM Member WHERE id ='" + id + "' and password = '" + password + "'");
 			while (rs.next()) {
 				temp.setId(rs.getString("id"));
 				temp.setName(rs.getString("name"));
@@ -49,28 +49,27 @@ public class MemberDAOImpl implements MemberDAO {
 				temp.setAddr(rs.getString("addr"));
 				temp.setBirth(rs.getInt("birth"));
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println("selectById() 에서 에러 발생함 !!");
 			e.printStackTrace();
 		}
 		if (temp.getAddr() != null) {
-			System.out.println("selectById() 쿼리 조회 결과 :"+temp.getAddr());
+			System.out.println("selectById() 쿼리 조회 결과 :" + temp.getAddr());
 			return temp;
 		} else {
 			System.out.println("selectById() 쿼리 조회 결과 : null ");
 			return null;
 		}
-		
+
 	}
+
 	@Override
 	public MemberBean selectMember(String id) {
 		// TODO Auto-generated method stub
 		MemberBean temp = new MemberBean();
 
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM Member WHERE id ='" + id + "'");
 			while (rs.next()) {
@@ -100,8 +99,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public void delete(String id) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("DELETE FROM Member WHERE id='" + id + "'");
 		} catch (Exception e) {
@@ -117,8 +114,6 @@ public class MemberDAOImpl implements MemberDAO {
 		boolean result = false;
 
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM Member WHERE id ='" + id + "'");
 
