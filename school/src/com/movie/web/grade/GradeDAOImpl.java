@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.movie.web.global.Constants;
+import com.movie.web.global.DatabaseFactory;
+import com.movie.web.global.Vendor;
 import com.movie.web.member.MemberBean;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 
@@ -23,14 +25,16 @@ public class GradeDAOImpl implements GradeDAO {
 	private PreparedStatement pstmt;// 쿼리 전송 객체 2
 	private ResultSet rs;// 리턴값 회수 객체
 
+	public GradeDAOImpl() {
+		conn = DatabaseFactory.getDatabase(Vendor.ORACLE, Constants.ID, Constants.PASSWORD).getConnection();
+	}
+
 	@Override
 	public void insert(GradeBean grade) {
 		// TODO Auto-generated method stub
 		GradeMemberBean bean = new GradeMemberBean();
 
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("INSERT INTO Grade(hak,id,java,sql,jsp,spring) VALUES(hak.NEXTVAL,?,?,?,?,?)");
 			while (rs.next()) {
@@ -47,8 +51,6 @@ public class GradeDAOImpl implements GradeDAO {
 		List<GradeMemberBean> beanList = new ArrayList<GradeMemberBean>();
 
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM GradeMember");
 			while (rs.next()) {
@@ -80,8 +82,6 @@ public class GradeDAOImpl implements GradeDAO {
 
 		GradeMemberBean bean = new GradeMemberBean();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM GradeMember WHERE hak = '" + hak + "'");
 			while (rs.next()) {
@@ -108,13 +108,12 @@ public class GradeDAOImpl implements GradeDAO {
 
 		return bean;
 	}
+
 	public GradeMemberBean selectGradeById(String id) {
 		// R 성적표 조회(id)
 
 		GradeMemberBean bean = new GradeMemberBean();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM GradeMember WHERE id = '" + id + "'");
 			while (rs.next()) {
@@ -141,14 +140,13 @@ public class GradeDAOImpl implements GradeDAO {
 
 		return bean;
 	}
+
 	@Override
 	public List<GradeMemberBean> selectGradesByName(String name) {
 		// TODO Auto-generated method stub
 		List<GradeMemberBean> beanList = new ArrayList<GradeMemberBean>();
 
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM GradeMember WHERE name = '" + name + "'");
 
@@ -182,8 +180,6 @@ public class GradeDAOImpl implements GradeDAO {
 		int count = 0;
 		try {
 
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			// 방법1.
 			rs = stmt.executeQuery("SELECT COUNT(*) AS count FROM GradeMember");
@@ -216,8 +212,6 @@ public class GradeDAOImpl implements GradeDAO {
 		// TODO Auto-generated method stub
 		String result = "회원 탈퇴 실패";
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			conn = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PASSWORD);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("DELETE FROM GradeMember WHERE hak=" + hak);
 			while (rs.next()) {

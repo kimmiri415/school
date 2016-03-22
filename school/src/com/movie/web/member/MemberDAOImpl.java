@@ -3,6 +3,8 @@ package com.movie.web.member;
 import java.sql.Statement;
 
 import com.movie.web.global.Constants;
+import com.movie.web.global.DatabaseFactory;
+import com.movie.web.global.Vendor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +18,7 @@ public class MemberDAOImpl implements MemberDAO {
 	private ResultSet rs;// 리턴값 회수 객체
 
 	public MemberDAOImpl() {
-		
+		conn = DatabaseFactory.getDatabase(Vendor.ORACLE, Constants.ID, Constants.PASSWORD).getConnection();
 	}
 
 	@Override
