@@ -50,6 +50,7 @@ public class GradeMain {
 				System.out.println("[회원수]");
 				System.out.println(service.getCount());
 				break;
+				
 			case 0:
 				System.out.println("종료");
 

@@ -129,7 +129,7 @@ public class MemberDAOImpl implements MemberDAO {
 			pstmt.setString(1, id);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
-		
+
 			System.out.println("delete() 에서 에러 발생");
 			e.printStackTrace();
 		}

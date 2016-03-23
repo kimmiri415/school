@@ -1,7 +1,7 @@
 CREATE OR REPLACE VIEW GradeMember
 AS
 SELECT 
-	g.hak AS hak,
+	g.score_seq AS score_seq,
 	g.id AS id,
 	g.java AS java,
 	g.sql AS sql,
@@ -13,13 +13,14 @@ SELECT
 	m.birth AS birth
 FROM Member m, Grade g
 WHERE m.id = g.id;
-SELECT * FROM GradeMember;
 
+SELECT * FROM GradeMember;
+DROP VIEW GradeMember CASCADE CONSTRAINT;
 DROP VIEW GradeMember;
 
 INSERT INTO Member(id,name,password,addr,birth)
-VALUES('hong','홍길동','1','서울',800101);
-
+VALUES('hongs','홍길동s','1','서울s',800101);
+SELECT * FROM GradeMember where id='hongs';
 
 --안되
 INSERT INTO GradeMember(hak,id,java,sql,jsp,spring,name,password,addr,birth)

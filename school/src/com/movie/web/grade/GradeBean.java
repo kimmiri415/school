@@ -8,6 +8,16 @@ public class GradeBean {
 	public GradeBean() {
 	}
 
+	public GradeBean(String id, int java, int sql, int jsp, int spring) {
+
+		this.id = id;
+		this.java = java;
+		this.sql = sql;
+		this.jsp = jsp;
+		this.spring = spring;
+
+	}
+
 	public GradeBean(int hak, String id, int java, int sql, int jsp, int spring) {
 
 		this.hak = hak;
