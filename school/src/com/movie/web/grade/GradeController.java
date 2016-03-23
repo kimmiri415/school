@@ -17,10 +17,12 @@ import com.movie.web.member.MemberServiceImpl;
 @WebServlet("/grade/my_grade.do")
 public class GradeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	GradeService service = GradeServiceImpl.getInstance();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Command command = new Command();
-		GradeService service = new GradeServiceImpl();
+
 		String id = "";
 
 		String[] arr = new String[2];
@@ -32,7 +34,7 @@ public class GradeController extends HttpServlet {
 			System.out.println("====내 성적가져오기====");
 			System.out.println(service.getGradeById(request.getParameter("id")));
 			request.setAttribute("score", service.getGradeById(request.getParameter("id")));
-		
+
 			command = CommandFactory.createCommand(directory, "my_grade");
 			break;
 
@@ -48,7 +50,8 @@ public class GradeController extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
 }

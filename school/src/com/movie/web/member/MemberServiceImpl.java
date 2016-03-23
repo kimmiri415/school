@@ -15,11 +15,16 @@ import oracle.net.aso.g;
  *
  */
 public class MemberServiceImpl implements MemberService {
+	private static MemberService instance = new MemberServiceImpl();
 	HashMap<String, MemberBean> map;
-	MemberDAO dao = new MemberDAOImpl();// deep copy
+	MemberDAO dao = MemberDAOImpl.getInstance();// deep copy
 
 	public MemberServiceImpl() {
 		map = new HashMap<String, MemberBean>();
+	}
+
+	public static MemberService getInstance() {
+		return instance;
 	}
 
 	public void join(MemberBean member) {

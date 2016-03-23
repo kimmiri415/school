@@ -20,6 +20,8 @@ import com.movie.web.member.MemberBean;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 public class GradeDAOImpl implements GradeDAO {
+	private static GradeDAO instance = new GradeDAOImpl();
+	
 	private Connection conn;// 오라클 연결객체
 	private Statement stmt;// 쿼리 전송객체
 	private PreparedStatement pstmt;// 쿼리 전송 객체 2
@@ -27,6 +29,9 @@ public class GradeDAOImpl implements GradeDAO {
 
 	public GradeDAOImpl() {
 		conn = DatabaseFactory.getDatabase(Vendor.ORACLE, Constants.ID, Constants.PASSWORD).getConnection();
+	}
+	public static GradeDAO getInstance() {
+		return instance;
 	}
 
 	@Override

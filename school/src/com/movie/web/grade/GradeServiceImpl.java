@@ -6,11 +6,15 @@ import java.util.Map;
 
 public class GradeServiceImpl implements GradeService {
 	// 멤버필드
+	private static GradeService instance = new GradeServiceImpl();
 	ArrayList<GradeBean> gradeList;
-	GradeDAO dao = new GradeDAOImpl();
-
+	GradeDAO dao = GradeDAOImpl.getInstance();
+	
 	public GradeServiceImpl() {
 		gradeList = new ArrayList<GradeBean>();
+	}
+	public static GradeService getInstance() {
+		return instance;
 	}
 
 	// 멤버 메소드 에어리어

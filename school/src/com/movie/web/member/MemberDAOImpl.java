@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class MemberDAOImpl implements MemberDAO {
+	private static MemberDAO instance = new MemberDAOImpl();
+
 	private Connection conn;// 오라클 연결객체
 	private Statement stmt;// 쿼리 전송객체
 	private PreparedStatement pstmt;// 쿼리 전송 객체 2
@@ -19,6 +21,10 @@ public class MemberDAOImpl implements MemberDAO {
 
 	public MemberDAOImpl() {
 		conn = DatabaseFactory.getDatabase(Vendor.ORACLE, Constants.ID, Constants.PASSWORD).getConnection();
+	}
+
+	public static MemberDAO getInstance() {
+		return instance;
 	}
 
 	@Override
