@@ -27,9 +27,9 @@ public class MemberServiceImpl implements MemberService {
 		return instance;
 	}
 
-	public void join(MemberBean member) {
+	public int join(MemberBean member) {
 		// 회원가입
-		dao.insert(member);
+		return dao.insert(member);
 	}
 
 	@Override
@@ -53,34 +53,15 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMember(id);
 	}
 
-	public String update(MemberBean member) {
+	public int update(MemberBean member) {
 		// 수정
-		String result = "수정하려는 id가 존재하지 않음";
-		if (!detail(member.getId()).equals(null)) {
-
-			MemberBean tempBean = dao.selectMember(member.getId());
-			tempBean.setPassword(member.getPassword());
-			tempBean.setAddr(member.getAddr());
-			tempBean.setBirth(member.getBirth());
-			tempBean.setName(member.getName());
-
-			result = "수정 성공 " + tempBean;
-
-			return result;
-		}
-
-		return result;
+	
+		return dao.update(member);
 	}
 
-	public String remove(String id) {
+	public int remove(String id) {
 		// 탈퇴
-		String result = "탈퇴하려는 id가 존재하지 않음";
-
-		if (detail(id) != null) {
-			dao.delete(id);
-			result = "탈퇴 성공";
-		}
-		return result;
+		return dao.delete(id);
 	}
 
 	@Override

@@ -20,6 +20,10 @@ INSERT INTO Member
 VALUES('yoon','윤손하','1','인천',060201);
 INSERT INTO Member(id,name,password,addr,birth)
 VALUES('kim2','김유신','1','LA',850501);
+INSERT INTO Member(id,name,password,addr,birth)
+VALUES('you','유아인','1','강릉',920505);
+
+
 SELECT * FROM Member;
 DROP TABLE Member;
 
@@ -32,5 +36,10 @@ WHERE id = 'kim' and password='1';
 select * from member;
 DELETE
 FROM Member
-WHERE id='miri';
+WHERE id='1';
+
+
+UPDATE Member
+SET password='2', addr ='오사카'
+WHERE id ='choi';
 

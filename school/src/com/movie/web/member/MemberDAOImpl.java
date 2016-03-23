@@ -6,6 +6,7 @@ import com.movie.web.global.Constants;
 import com.movie.web.global.DatabaseFactory;
 import com.movie.web.global.Vendor;
 
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,20 +29,26 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void insert(MemberBean member) {
-		// TODO Auto-generated method stub
+	public int insert(MemberBean member) {
+		int result = 0;
 		try {
-			stmt = conn.createStatement();
-			if (isMember(member.getAddr()) == false) {
-				rs = stmt.executeQuery("INSERT INTO Member(id,name,password,addr,birth) VALUES(?,?,?,?,?)");
-			} else {
-				System.out.println("회원가입 실패 : 아이디 중복");
-			}
+			pstmt = conn.prepareStatement("INSERT INTO Member(id,name,password,addr,birth) VALUES(?,?,?,?,?)");
+
+			// Connection은 내부적으로 Factory (ex- create...)////싱글톤은 대부분
+			// getInstance로시작
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getName());
+			pstmt.setString(3, member.getPassword());
+			pstmt.setString(4, member.getAddr());
+			pstmt.setInt(5, member.getBirth());
+			result = pstmt.executeUpdate();
+
 		} catch (Exception e) {
 			System.out.println("insert() 에서 에러 발생");
 			e.printStackTrace();
 		}
-
+		System.out.println("회원가입 성공여부 : " + result);
+		return result;
 	}
 
 	@Override
@@ -98,23 +105,36 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void update(MemberBean member) {
-		// TODO Auto-generated method stub
-
+	public int update(MemberBean member) {
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement("UPDATE Member SET password=? ,addr=? WHERE id=?");
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getAddr());
+			pstmt.setString(3, member.getId());
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("update() 에서 에러 발생");
+			e.printStackTrace();
+		}
+		System.out.println("update()의 쿼리 조회 결과 : " + result);
+		return result;
 	}
 
 	@Override
-	public void delete(String id) {
-		// TODO Auto-generated method stub
+	public int delete(String id) {
+		int result = 0;
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("DELETE FROM Member WHERE id='" + id + "'");
+			pstmt = conn.prepareStatement("DELETE FROM Member WHERE id=?");
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		
 			System.out.println("delete() 에서 에러 발생");
 			e.printStackTrace();
 		}
-
+		System.out.println("delete()의 쿼리 조회 결과 : " + result);
+		return result;
 	}
 
 	@Override
@@ -134,7 +154,6 @@ public class MemberDAOImpl implements MemberDAO {
 			e.printStackTrace();
 		}
 		System.out.println("isMember()의 쿼리 조회 결과 : " + result);
-		System.out.println("로그인실패 : id가 존재하지 않습니다");
 		return result;
 	}
 
