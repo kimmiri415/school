@@ -28,8 +28,8 @@ public class MemberController extends HttpServlet {
 		System.out.println("인덱스에서 들어옴");
 		Command command = new Command();
 		MemberBean member = new MemberBean();
-		String path = Seperator.extract(request)[0];
-		String temp = Seperator.extract(request)[1];
+//		String path = Seperator.extract(request)[0];
+//		String temp = Seperator.extract(request)[1];
 		String directory = Seperator.extract(request)[2];
 		String action = Seperator.extract(request)[3];
 
@@ -46,6 +46,26 @@ public class MemberController extends HttpServlet {
 			} else {
 				command = CommandFactory.createCommand(directory, "join_form");
 			}
+			break;
+
+		case "login":
+
+			if (service.isMember(request.getParameter("id")) == true) {
+				System.out.println("====  아이디가 존재함 ===========");
+				member = service.login(request.getParameter("id"), request.getParameter("password"));
+				if (member == null) {
+					command = CommandFactory.createCommand(directory, "login_form");
+				} else {
+					System.out.println("로그인 성공");
+					request.setAttribute("member", member);
+					command = CommandFactory.createCommand(directory, "detail");
+				}
+
+			} else {
+				System.out.println("====  로그인 실패 ===========");
+				command = CommandFactory.createCommand(directory, "login_form");
+			}
+
 			break;
 		case "update_form":
 			System.out.println("====  수정 폼으로 진입 get===========");
@@ -79,25 +99,6 @@ public class MemberController extends HttpServlet {
 			}
 			break;
 
-		case "login":
-
-			if (service.isMember(request.getParameter("id")) == true) {
-				System.out.println("====  아이디가 존재함 ===========");
-				member = service.login(request.getParameter("id"), request.getParameter("password"));
-				if (member == null) {
-					command = CommandFactory.createCommand(directory, "login_form");
-				} else {
-					System.out.println("로그인 성공");
-					request.setAttribute("member", member);
-					command = CommandFactory.createCommand(directory, "detail");
-				}
-
-			} else {
-				System.out.println("====  로그인 실패 ===========");
-				command = CommandFactory.createCommand(directory, "login_form");
-			}
-
-			break;
 		default:
 			command = CommandFactory.createCommand(directory, action);
 			break;
