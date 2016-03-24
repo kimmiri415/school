@@ -48,6 +48,7 @@
 		<div>
 			<h3>document.createElement()의 예제</h3>
 			<button onclick="dom.createTag1()">객체만들기 1</button>
+			<button onclick="dom.createTag2()">객체만들기 2</button>
 		</div>
 	</div>
 	<div>
@@ -91,12 +92,17 @@
 			attr.nodeValue = "background: red;width: 500px;height: 100px;margin: 0 0 0 200px";
 			elem.setAttributeNode(attr);
 			document.body.appendChild(elem);
+		
 		},
+		
 		createTag2 : function(){
 			var elem = document.createElement('div');
-			elem.setAttributeNode('style','background: blue; width: 500px;height: 100px;margin: 0 0 0 200px');
+			elem.setAttribute('style','background: blue; width: 500px;height: 100px;margin: 0 0 0 200px');
 			document.body.appendChild(elem);
 		},
+		
+		
+		
 		selectElementsByTagName : function(){
 			var elems = document.getElementsByTagName('span');
 			for (var i= 0,elem ; elem = elems[i]; i++) {
