@@ -21,8 +21,6 @@ public class HomeController extends HttpServlet {
 		String path = request.getServletPath();
 		String directory = path.split("/")[1];
 		String action = path.split("/")[2].split("\\.")[0];
-		System.out.println("directory (global?):" + directory);
-		System.out.println("action (main?) :" + action);
 		command = CommandFactory.createCommand(directory, action);
 
 		System.out.println("getView(): " + command.getView());
