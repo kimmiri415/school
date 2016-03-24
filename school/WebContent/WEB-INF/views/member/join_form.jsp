@@ -12,6 +12,7 @@
 					 	<div class="col-sm-4">
 							<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력하세요"/>
 						</div>
+					
 					</div>
 					<div class="form-group">
 						<label for="input_pw" class="col-sm-4 control-label">비밀번호</label>

@@ -22,8 +22,8 @@ public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	MemberService service = MemberServiceImpl.getInstance();
 
-	// 페이지 이동시에는 doGet
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("인덱스에서 들어옴");
 		Command command = new Command();
@@ -33,39 +33,6 @@ public class MemberController extends HttpServlet {
 		String directory = Seperator.extract(request)[2];
 		String action = Seperator.extract(request)[3];
 
-		switch (action) {
-
-		case "update_form":
-			System.out.println("====  수정 폼으로 진입 get===========");
-			request.setAttribute("member", service.detail(request.getParameter("id")));
-			command = CommandFactory.createCommand(directory, action);
-
-			break;
-		case "delete":
-			System.out.println("=====  회원탈퇴 진입 ===========");
-		
-			if (service.remove(request.getParameter("id")) == 1) {
-				command = CommandFactory.createCommand(directory, "login_form");
-			} else {
-				request.setAttribute("member", service.detail(request.getParameter("id")));
-				command = CommandFactory.createCommand(directory, "detail");
-			}
-			break;
-		default:
-			command = CommandFactory.createCommand(directory, action);
-			break;
-		}
-		DispatcherServlet.go(request, response, command.getView());
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		MemberBean member = new MemberBean();
-		Command command = new Command();
-		String path = Seperator.extract(request)[0];
-		String temp = Seperator.extract(request)[1];
-		String directory = Seperator.extract(request)[2];
-		String action = Seperator.extract(request)[3];
 		switch (action) {
 		case "join":
 
@@ -80,6 +47,23 @@ public class MemberController extends HttpServlet {
 				command = CommandFactory.createCommand(directory, "join_form");
 			}
 			break;
+		case "update_form":
+			System.out.println("====  수정 폼으로 진입 get===========");
+			request.setAttribute("member", service.detail(request.getParameter("id")));
+			command = CommandFactory.createCommand(directory, action);
+
+			break;
+		case "delete":
+			System.out.println("=====  회원탈퇴 진입 ===========");
+
+			if (service.remove(request.getParameter("id")) == 1) {
+				command = CommandFactory.createCommand(directory, "login_form");
+			} else {
+				request.setAttribute("member", service.detail(request.getParameter("id")));
+				command = CommandFactory.createCommand(directory, "detail");
+			}
+			break;
+
 		case "update":
 			member.setId(request.getParameter("id"));
 			member.setPassword(request.getParameter("password"));
@@ -114,12 +98,11 @@ public class MemberController extends HttpServlet {
 			}
 
 			break;
-		
-	
 		default:
+			command = CommandFactory.createCommand(directory, action);
 			break;
 		}
-
 		DispatcherServlet.go(request, response, command.getView());
 	}
+
 }

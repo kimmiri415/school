@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" />
-	<img alt="" src="${context}/img/main/main.jpg" width="100%"/>
+	<img alt="" src="${context}/resources/img/main/main.jpg" width="100%"/>
 	<br/>
 	<div style="margin-left: 43.5%;">
 		<div>
