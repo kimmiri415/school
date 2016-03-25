@@ -6,9 +6,10 @@
 
 	<div id="login">
 		<div class="loginTop text-center" >
-			<img src="${context}/resources/img/member/simpson.jpeg" border="0" height="240px" width="300px"/>
+			<img src="${context}/resources/img/member/simpson.jpeg" id="paper_plane"  />
 		</div>
-		<form action="${context}/member/login.do" method="post" name="loginForm" class="form-horizontal">
+		
+		<form>
 		<div class="loginCenter row" style="margin-left: 43.5%;">
 				<fieldset class="loginField">
 					<div class="form-group">
@@ -24,13 +25,21 @@
 						</div>
 					</div>
 				</fieldset>
-			
 		</div>
 		<div class="input_button text-center">
-			<input type="submit" id="loginButton" class="btn btn-primary" value ="로그인"/>
-			<input type="reset" id="joinButton" class="btn btn-primary" value ="취소"/>
+			<img src="${context}/resources/img/member/login.jpg" alt="" id="loginButton" />
 		</div>
 		</form>
 	</div>
 </body>
+<script>
+	$(function() {
+		$('form').addClass("form-horizontal").attr('action' ,'${context}/member/login.do').attr('method','post');
+		$('#paper_plane').css('border','0').css('height','260px').css('width','360px').css('margin-bottom','20px');
+		$('#loginButton').css('width', '100px');
+		$('#loginButton').click(function() {
+		$('form').submit();
+		});
+	});
+</script>
 </html>

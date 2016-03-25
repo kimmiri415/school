@@ -5,10 +5,17 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<title>index</title>
+	<meta charset="UTF-8" />
+	<title>인덱스화면</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
-	<a href="${context}/global/main.do">홈으로</a>
+	<img src="${context}/resources/img/main/index.gif" id="image" style="margin-left: 40%;margin-top: 15%"/>
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+			location.href='${context}/global/main.do';
+	});
+
+</script>
 </html>

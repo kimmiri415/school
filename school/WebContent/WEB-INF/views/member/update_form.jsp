@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../global/header.jsp"/>
-<div id="join">
+<div id="update">
 		<div class="joinTop">
 			<h2 class="text-center">회원 수정 정보</h2>
 		</div>
 		<div class="joinCenter row">
-			<form action="${context}/member/update.do" method="post" name="updateForm" class="form-horizontal">
+			<form>
 				<fieldset class="joinField">
 					<div class="form-group">
 					 	<label for="input_id" class="col-sm-4 control-label">아이디</label>
@@ -39,12 +39,24 @@
 						</div>
 					</div>
 					<div class="input_button text-center">
-						<input type="submit" id="updateButton" class="btn btn-primary" value ="수정하기"/>
-						<input type="reset" id="cancleButton" class="btn btn-primary" value ="취소"/>
+						<button id="updateBtn">수정하기</button>
+						<button id="cancleBtn">취소</button>
 					</div>
 						
 				</fieldset>
 			</form>
 		</div>
 	</div>
+	<script>
+	$(function() {
+	$form = $('form');
+		$form.addClass("form-horizontal").attr('method','post').attr('action','${context}/member/update.do');
+		$('#updateBtn').addClass("btn btn-primary").click(function() {
+			$form.submit();
+		});
+		$('#cancleBtn').addClass("btn btn-primary").click(function() {
+			$form.reset();
+		});
+	});
 	
+	</script>

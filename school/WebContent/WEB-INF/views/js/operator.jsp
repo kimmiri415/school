@@ -14,6 +14,7 @@
 				<li><a onclick="opr.gugudan()">구구단 출력</a></li>
 				<li><a onclick="opr.sum1to100()">sum1to100값 확인</a></li>
 				<li><a onclick="opr.oddSum()">odd/even Sum</a></li>
+				<li><a onclick="liveScript()">라이브 스크립트 호출</a></li>
 
 			</ul>
 		</div>
@@ -22,6 +23,9 @@
 	</div>
 </div>
 <script type="text/javascript">
+function liveScript(){
+	alert('라이브스크립트 시절(객체기반언어가 아닌 시절)은 이렇게 했답니다.');
+}
 	var opr = {
 		sysout : function() {
 			var result = '';
