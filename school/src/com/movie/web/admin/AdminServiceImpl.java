@@ -8,8 +8,6 @@ import com.movie.web.grade.GradeMemberBean;
 public class AdminServiceImpl implements AdminService{
 	private static AdminService instance = new AdminServiceImpl();
 	AdminDAO dao = AdminDAOImpl.getInstance();
-			
-			
 	
 	public static AdminService getInstance() {
 		return instance;
@@ -29,6 +27,10 @@ public class AdminServiceImpl implements AdminService{
 	public GradeMemberBean getGradeListById(String id) {
 		
 		return dao.selectMemberById(id);
+	}
+	@Override
+	public AdminBean getAdmin(AdminBean admin) {
+		return dao.selectAdmin(admin);
 	}
 
 }

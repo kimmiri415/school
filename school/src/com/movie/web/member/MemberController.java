@@ -2,19 +2,17 @@ package com.movie.web.member;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.movie.web.global.Command;
 import com.movie.web.global.CommandFactory;
 import com.movie.web.global.DispatcherServlet;
 import com.movie.web.global.Seperator;
-
-import javafx.scene.control.Separator;
 
 @WebServlet({ "/member/login_form.do", "/member/join_form.do", "/member/join.do", "/member/login.do",
 		"/member/admin.do", "/member/update_form.do", "/member/update.do", "/member/delete.do" })
@@ -32,7 +30,8 @@ public class MemberController extends HttpServlet {
 //		String temp = Seperator.extract(request)[1];
 		String directory = Seperator.extract(request)[2];
 		String action = Seperator.extract(request)[3];
-
+		HttpSession session = request.getSession();
+		
 		switch (action) {
 		case "join":
 
@@ -57,7 +56,8 @@ public class MemberController extends HttpServlet {
 					command = CommandFactory.createCommand(directory, "login_form");
 				} else {
 					System.out.println("로그인 성공");
-					request.setAttribute("member", member);
+					//request.setAttribute("member", member);//request => dom  
+					session.setAttribute("user", member);//session => bom
 					command = CommandFactory.createCommand(directory, "detail");
 				}
 
@@ -69,7 +69,6 @@ public class MemberController extends HttpServlet {
 			break;
 		case "update_form":
 			System.out.println("====  수정 폼으로 진입 get===========");
-			request.setAttribute("member", service.detail(request.getParameter("id")));
 			command = CommandFactory.createCommand(directory, action);
 
 			break;
@@ -79,7 +78,6 @@ public class MemberController extends HttpServlet {
 			if (service.remove(request.getParameter("id")) == 1) {
 				command = CommandFactory.createCommand(directory, "login_form");
 			} else {
-				request.setAttribute("member", service.detail(request.getParameter("id")));
 				command = CommandFactory.createCommand(directory, "detail");
 			}
 			break;
@@ -91,14 +89,16 @@ public class MemberController extends HttpServlet {
 			member.setAddr(request.getParameter("addr"));
 			member.setBirth(Integer.parseInt(request.getParameter("birth").replaceAll("-", "")));
 			if (service.update(member) == 1) {
-				request.setAttribute("member", service.detail(request.getParameter("id")));
+				session.setAttribute("user", service.detail(request.getParameter("id")));
 				command = CommandFactory.createCommand(directory, "detail");
 			} else {
-				request.setAttribute("member", service.detail(request.getParameter("id")));
 				command = CommandFactory.createCommand(directory, "update_form");
 			}
 			break;
-
+		case "logout":
+			session.invalidate();
+			command = CommandFactory.createCommand(directory, "login_form");
+			break;
 		default:
 			command = CommandFactory.createCommand(directory, action);
 			break;

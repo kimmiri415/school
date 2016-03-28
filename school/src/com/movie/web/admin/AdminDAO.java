@@ -9,4 +9,5 @@ public interface AdminDAO {
 	public List<GradeMemberBean> selectAllMember();
 	public int insertScore(GradeBean bean);
 	public GradeMemberBean selectMemberById(String id);
+	public AdminBean selectAdmin(AdminBean admin);
 }

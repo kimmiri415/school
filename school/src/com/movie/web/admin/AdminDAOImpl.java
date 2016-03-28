@@ -114,4 +114,29 @@ public class AdminDAOImpl implements AdminDAO {
 		return bean;
 	}
 
+	@Override
+	public AdminBean selectAdmin(AdminBean admin) {
+		AdminBean temp = new AdminBean();
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM Admin WHERE id ='" + admin.getId() + "' and password='"+admin.getPassword()+"'");
+			while (rs.next()) {
+				temp.setId(rs.getString("id"));
+				temp.setName(rs.getString("name"));
+				temp.setPassword(rs.getString("password"));
+				temp.setAddr(rs.getString("addr"));
+				temp.setBirth(rs.getInt("birth"));
+				temp.setRole(rs.getString("role"));
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("selectAdmin() 에서 에러 발생");
+			e.printStackTrace();
+		}
+		System.out.println("selectAdmin()의 쿼리 조회 결과 : " + temp.getAddr());
+		return temp;
+	}
+
 }
