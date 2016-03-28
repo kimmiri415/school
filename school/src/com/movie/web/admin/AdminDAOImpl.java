@@ -121,6 +121,7 @@ public class AdminDAOImpl implements AdminDAO {
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM Admin WHERE id ='" + admin.getId() + "' and password='"+admin.getPassword()+"'");
+			
 			while (rs.next()) {
 				temp.setId(rs.getString("id"));
 				temp.setName(rs.getString("name"));
@@ -135,7 +136,7 @@ public class AdminDAOImpl implements AdminDAO {
 			System.out.println("selectAdmin() 에서 에러 발생");
 			e.printStackTrace();
 		}
-		System.out.println("selectAdmin()의 쿼리 조회 결과 : " + temp.getAddr());
+		System.out.println("selectAdmin()의 쿼리 조회 결과 : " + temp.getRole());
 		return temp;
 	}
 

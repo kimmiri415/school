@@ -14,18 +14,15 @@ public class AdminServiceImpl implements AdminService{
 	}
 	@Override
 	public List<GradeMemberBean>  getGradeList() {
-		// TODO Auto-generated method stub
 		return dao.selectAllMember();
 	}
 
 	@Override
 	public int addScore(GradeBean bean) {
-		// TODO Auto-generated method stub
 		return dao.insertScore(bean);
 	}
 	@Override
 	public GradeMemberBean getGradeListById(String id) {
-		
 		return dao.selectMemberById(id);
 	}
 	@Override
